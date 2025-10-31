@@ -1,3 +1,6 @@
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
 const readerschema = new Schema({
   name: {
     type: String,
@@ -20,3 +23,5 @@ const readerschema = new Schema({
     required: true,
   },
 });
+const Reader = mongoose.model("Reader", readerschema);
+module.exports = Reader;

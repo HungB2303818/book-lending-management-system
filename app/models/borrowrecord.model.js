@@ -1,11 +1,15 @@
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
 const borrowRecordSchema = new mongoose.Schema({
   bookId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Book",
     required: true,
   },
-    borrowerName: {
-    type: String,
+    readerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Reader",
     required: true,
   },
     borrowDate: {
