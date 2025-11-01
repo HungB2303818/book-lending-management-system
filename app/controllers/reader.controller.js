@@ -1,4 +1,4 @@
-const readerService = require("../services/reader.service");
+const ReaderService = require("../services/reader.service");
 const ApiError = require("../api-error");
 
 // [POST] /api/readers
@@ -8,7 +8,7 @@ exports.create = async (req, res, next) => {
   }
 
   try {
-    const reader = await readerService.createReader(req.body);
+    const reader = await ReaderService.createReader(req.body);
     return res.status(201).json(reader);
   } catch (error) {
     return next(
@@ -20,7 +20,7 @@ exports.create = async (req, res, next) => {
 // [GET] /api/readers
 exports.findAll = async (req, res, next) => {
   try {
-    const readers = await readerService.getAllReaders();
+    const readers = await ReaderService.findAll();
     return res.json(readers);
   } catch (error) {
     return next(new ApiError(500, "Lỗi khi lấy danh sách bạn đọc"));
@@ -30,7 +30,7 @@ exports.findAll = async (req, res, next) => {
 // [GET] /api/readers/:id
 exports.findOne = async (req, res, next) => {
   try {
-    const reader = await readerService.getReaderById(req.params.id);
+    const reader = await ReaderService.getReaderById(req.params.id);
     if (!reader) {
       return next(new ApiError(404, "Không tìm thấy bạn đọc"));
     }
@@ -43,7 +43,7 @@ exports.findOne = async (req, res, next) => {
 // [PUT] /api/readers/:id
 exports.update = async (req, res, next) => {
   try {
-    const reader = await readerService.updateReader(req.params.id, req.body);
+    const reader = await ReaderService.updateReader(req.params.id, req.body);
     if (!reader) {
       return next(new ApiError(404, "Không tìm thấy bạn đọc để cập nhật"));
     }
@@ -56,7 +56,7 @@ exports.update = async (req, res, next) => {
 // [DELETE] /api/readers/:id
 exports.delete = async (req, res, next) => {
   try {
-    const reader = await readerService.deleteReader(req.params.id);
+    const reader = await ReaderService.deleteReader(req.params.id);
     if (!reader) {
       return next(new ApiError(404, "Không tìm thấy bạn đọc để xóa"));
     }

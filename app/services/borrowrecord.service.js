@@ -1,9 +1,10 @@
 const BorrowRecord = require("../models/borrowrecord.model");
 const Book = require("../models/book.model");
 const ApiError = require("../api-error");
+const Reader = require("../models/reader.model");
 
 const BorrowRecordService = {
-  async createBorrowRecord(data) {
+  async create(data) {
     const { readerId, bookId } = data;
 
     const book = await Book.findById(bookId);
@@ -21,13 +22,13 @@ const BorrowRecordService = {
     return await record.save();
   },
 
-  async getAllBorrowRecords() {
+  async findAll() {
     return await BorrowRecord.find()
       .populate("readerId", "name email")
       .populate("bookId", "title author");
   },
 
-  async getBorrowRecordById(id) {
+  async findById(id) {
     const record = await BorrowRecord.findById(id)
       .populate("readerId", "name email")
       .populate("bookId", "title author");
@@ -35,7 +36,7 @@ const BorrowRecordService = {
     return record;
   },
 
-  async updateBorrowRecord(id, data) {
+  async update(id, data) {
     const updated = await BorrowRecord.findByIdAndUpdate(id, data, {
       new: true,
     });
@@ -43,7 +44,7 @@ const BorrowRecordService = {
     return updated;
   },
 
-  async deleteBorrowRecord(id) {
+  async delete(id) {
     const deleted = await BorrowRecord.findByIdAndDelete(id);
     if (!deleted) throw new ApiError(404, "Không tìm thấy bản ghi để xóa");
     return deleted;

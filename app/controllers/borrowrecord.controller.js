@@ -4,7 +4,7 @@ const ApiError = require("../api-error");
 // [POST] /api/borrowrecords
 exports.create = async (req, res, next) => {
   try {
-    const record = await borrowrecordService.createBorrowRecord(req.body);
+    const record = await borrowrecordService.create(req.body);
     return res.status(201).json(record);
   } catch (error) {
     return next(
@@ -16,7 +16,7 @@ exports.create = async (req, res, next) => {
 // [GET] /api/borrowrecords
 exports.findAll = async (req, res, next) => {
   try {
-    const records = await borrowrecordService.getAllBorrowRecords();
+    const records = await borrowrecordService.findAll();
     return res.json(records);
   } catch (error) {
     return next(new ApiError(500, "Lỗi khi lấy danh sách bản ghi mượn sách"));

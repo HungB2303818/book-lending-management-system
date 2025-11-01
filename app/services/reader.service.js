@@ -1,11 +1,12 @@
 const Reader = require("../models/reader.model");
+const ApiError = require("../api-error");
 
 class ReaderService {
   async createReader(data) {
     const reader = new Reader(data);
     return await reader.save();
   }
-  async getAllReaders() {
+  async findAll() {
     return await Reader.find();
   }
   async getReaderById(id) {
@@ -14,7 +15,7 @@ class ReaderService {
     return reader;
   }
   async updateReader(id, data) {
-    const reader = await Reader.find.findByIdAndUpdate(id, data, { new: true });
+    const reader = await Reader.findByIdAndUpdate(id, data, { new: true });
     if (!reader) throw new Error("Không tìm thấy độc giả để cập nhật");
     return reader;
   }
@@ -25,4 +26,4 @@ class ReaderService {
   }
 }
 
-module.exports = ReaderService;
+module.exports = new ReaderService();
