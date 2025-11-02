@@ -7,17 +7,17 @@ const borrowRecordSchema = new mongoose.Schema({
     ref: "Book",
     required: true,
   },
-    readerId: {
+  readerId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Reader",
     required: true,
   },
-    borrowDate: {
+  borrowDate: {
     type: Date,
     required: true,
     default: Date.now,
-  },   
-    returnDate: {
+  },
+  returnDate: {
     type: Date,
     required: false,
   },

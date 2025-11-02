@@ -8,7 +8,6 @@ exports.create = async (req, res, next) => {
       new ApiError(400, "Mã nhà xuất bản và tên không được để trống")
     );
   }
-
   try {
     const publisher = await publisherService.createPublisher(req.body);
     return res.status(201).json(publisher);

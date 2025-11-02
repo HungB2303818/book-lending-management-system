@@ -6,7 +6,6 @@ exports.create = async (req, res, next) => {
   if (!req.body?.readerCode || !req.body?.name) {
     return next(new ApiError(400, "Mã bạn đọc và tên không được để trống"));
   }
-
   try {
     const reader = await ReaderService.createReader(req.body);
     return res.status(201).json(reader);

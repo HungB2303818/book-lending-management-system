@@ -7,11 +7,11 @@ exports.create = async (req, res, next) => {
     return next(new ApiError(400, "Tựa sách không thể để trống"));
   }
   try {
-    const book = await BookService.create(req.body);
-    return res.status(201).json(book);
+      const book = await BookService.create(req.body);
+      return res.status(201).json(book);
   } catch (error) {
     console.error(error);
-    return next(new ApiError(500, "Error creating book"));
+    return next(error);
   }
 };
 

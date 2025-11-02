@@ -1,4 +1,4 @@
-const EmployeeService = require("../services/employee.service");
+const employeeService = require("../services/employee.service");
 const ApiError = require("../api-error");
 
 exports.create = async (req, res, next) => {

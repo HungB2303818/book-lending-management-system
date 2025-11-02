@@ -3,6 +3,8 @@ const ApiError = require("../api-error");
 
 class ReaderService {
   async createReader(data) {
+    const existing = await Reader.findOne({ readerCode: data.readerCode });
+    if (existing) throw new Error("Mã bạn đọc đã tồn tại");
     const reader = new Reader(data);
     return await reader.save();
   }

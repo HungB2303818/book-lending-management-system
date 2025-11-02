@@ -26,7 +26,7 @@ exports.findAll = async (req, res, next) => {
 // [GET] /api/borrowrecords/:id
 exports.findOne = async (req, res, next) => {
   try {
-    const record = await borrowrecordService.getBorrowRecordById(req.params.id);
+    const record = await borrowrecordService.findById(req.params.id);
     if (!record) {
       return next(new ApiError(404, "Không tìm thấy bản ghi mượn sách"));
     }
