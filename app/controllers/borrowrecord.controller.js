@@ -4,12 +4,14 @@ const ApiError = require("../api-error");
 // [POST] /api/borrowrecords
 exports.create = async (req, res, next) => {
   try {
+    const { readerCode, bookCode } = req.body;
+    if (!readerCode || !bookCode) {
+      return next(new ApiError(400, "Thông tin mượn sách không đầy đủ"));
+    }
     const record = await borrowrecordService.create(req.body);
     return res.status(201).json(record);
   } catch (error) {
-    return next(
-      new ApiError(400, error.message || "Không thể tạo bản ghi mượn sách")
-    );
+    return next(error);
   }
 };
 
@@ -39,7 +41,7 @@ exports.findOne = async (req, res, next) => {
 // [PUT] /api/borrowrecords/:id
 exports.update = async (req, res, next) => {
   try {
-    const record = await borrowrecordService.updateBorrowRecord(
+    const record = await borrowrecordService.update(
       req.params.id,
       req.body
     );
@@ -50,7 +52,7 @@ exports.update = async (req, res, next) => {
     }
     return res.json(record);
   } catch (error) {
-    return next(new ApiError(500, "Lỗi khi cập nhật bản ghi mượn sách"));
+     return next(error);
   }
 };
 
@@ -67,7 +69,7 @@ exports.delete = async (req, res, next) => {
   }
 };
 
-// [PATCH] /api/borrowrecords/:id/return
+// [POST] /api/borrowrecords/:id/return
 exports.markAsReturned = async (req, res, next) => {
   try {
     const record = await borrowrecordService.markAsReturned(req.params.id);
@@ -78,6 +80,6 @@ exports.markAsReturned = async (req, res, next) => {
     }
     return res.json(record);
   } catch (error) {
-    return next(new ApiError(500, "Lỗi khi đánh dấu trả sách"));
+    return next(error);
   }
 };

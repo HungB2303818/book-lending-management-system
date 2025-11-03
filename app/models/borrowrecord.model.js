@@ -2,12 +2,16 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const borrowRecordSchema = new mongoose.Schema({
-  bookId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Book",
+  bookCode: {
+    type: String,
     required: true,
   },
-  readerId: {
+  readerCode: {
+    type: String,
+    required: true,
+  },
+  book: { type: mongoose.Schema.Types.ObjectId, ref: "Book", required: true },
+  reader: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Reader",
     required: true,
@@ -23,9 +27,9 @@ const borrowRecordSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ["đang mượn", "đã trả", "quá hạn"],
+    enum: ["borrowing", "returned", "overdue"],
     required: true,
-    default: "đang mượn",
+    default: "borrowing",
   },
 });
 const BorrowRecord = mongoose.model("BorrowRecord", borrowRecordSchema);

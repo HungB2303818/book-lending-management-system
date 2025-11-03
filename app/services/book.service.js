@@ -3,7 +3,7 @@ const Publisher = require("../models/publisher.model");
 const ApiError = require("../api-error");
 class BookService {
   async create(data) {
-    const existing = await Book.findOne({ bookcode: data.bookcode });
+    const existing = await Book.findOne({ bookCode: data.bookCode });
     if (existing) throw new ApiError(409, "Mã sách đã tồn tại");
     const publisher = await Publisher.findOne({publisherCode: data.publisherCode});
     if (!publisher) throw new ApiError(404, "Không tìm thấy nhà xuất bản");
